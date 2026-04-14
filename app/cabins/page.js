@@ -1,13 +1,16 @@
-import CabinCard from "@/app/_components/CabinCard";
-
+import CabinList from "@/app/_components/CabinList";
+import { Suspense } from "react";
+import Spinner from "../_components/Spinner";
+// revalidate=0 :will be dynamically rendered on the server on every request, This is useful for pages that need to display real-time data or personalized content that cannot be cached.
+// revalidate=value , static but isr
+// if revalidate isn't specified the page will be static forever
+// revalidate can't be computed,it hast to be a static value in seconds
+export const revalidate = 15;
 export const metadata = {
   title: "Cabins",
 };
 
-export default function Page() {
-  // CHANGE
-  const cabins = [];
-
+export default async function Page({ searchParams }) {
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -21,14 +24,9 @@ export default function Page() {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
-
-      {cabins.length > 0 && (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-          {cabins.map((cabin) => (
-            <CabinCard cabin={cabin} key={cabin.id} />
-          ))}
-        </div>
-      )}
+      <Suspense fallback={<Spinner />}>
+        <CabinList />
+      </Suspense>
     </div>
   );
 }
