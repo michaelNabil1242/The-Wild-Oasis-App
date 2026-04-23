@@ -1,11 +1,14 @@
 import Navigation from "../_components/Navigation";
+import { auth } from "../_lib/auth";
 export const metadata = {
   title: "Account",
 };
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+  const firstName = session.user.name.split(" ").at(0);
   return (
     <div>
-      <h1>Your Account,Michael</h1>
+      <h1>Your Account, {firstName}</h1>
     </div>
   );
 }

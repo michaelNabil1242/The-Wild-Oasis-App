@@ -1,9 +1,8 @@
 import Header from "./_components/Header";
-import Logo from "./_components/Logo";
-import Navigation from "./_components/Navigation";
 import "@/app/_styles/globals.css";
 //import the name of google font
 import { Josefin_Sans } from "next/font/google";
+import { ReservationProvider } from "./_components/ReservationContext";
 
 //storing the font in a variable to use it in the body
 const josefin = Josefin_Sans({
@@ -30,7 +29,7 @@ export default function RootLayout({ children }) {
         <div className="flex-1 px-8 py-12 grid">
           <main className="max-w-7xl  mx-auto w-full">
             {/* children is the current page just as the outlet */}
-            {children}
+            <ReservationProvider>{children}</ReservationProvider>
           </main>
         </div>
       </body>

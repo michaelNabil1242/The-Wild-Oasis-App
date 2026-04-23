@@ -1,6 +1,8 @@
 import CabinList from "@/app/_components/CabinList";
 import { Suspense } from "react";
 import Spinner from "../_components/Spinner";
+import Filter from "../_components/Filter";
+import ReservationReminder from "../_components/ReservationReminder";
 // revalidate=0 :will be dynamically rendered on the server on every request, This is useful for pages that need to display real-time data or personalized content that cannot be cached.
 // revalidate=value , static but isr
 // if revalidate isn't specified the page will be static forever
@@ -11,6 +13,9 @@ export const metadata = {
 };
 
 export default async function Page({ searchParams }) {
+  // whenEver you use searchParams the page can nolonger be staticly rendered
+  const filter = searchParams?.capacity ?? "all";
+
   return (
     <div>
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
@@ -24,8 +29,12 @@ export default async function Page({ searchParams }) {
         home away from home. The perfect spot for a peaceful, calm vacation.
         Welcome to paradise.
       </p>
-      <Suspense fallback={<Spinner />}>
-        <CabinList />
+      <div className="flex justify-end mb-8">
+        <Filter />
+      </div>
+      <Suspense fallback={<Spinner />} key={filter}>
+        <CabinList filter={filter} />
+        <ReservationReminder />
       </Suspense>
     </div>
   );
