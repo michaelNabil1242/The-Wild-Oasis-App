@@ -6,6 +6,7 @@ import { supabase } from "./supabase";
 // GET
 
 export async function getCabin(id) {
+  //TODO
   const { data, error } = await supabase
     .from("cabins")
     .select("*")
@@ -86,7 +87,7 @@ export async function getBookings(guestId) {
     .from("bookings")
     // We actually also need data on the cabins as well. But let's ONLY take the data that we actually need, in order to reduce downloaded data.
     .select(
-      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)"
+      "id, created_at, startDate, endDate, numNights, numGuests, totalPrice, guestId, cabinId, cabins(name, image)",
     )
     .eq("guestId", guestId)
     .order("startDate");
@@ -144,12 +145,44 @@ export async function getSettings() {
 
 export async function getCountries() {
   try {
-    const res = await fetch(
-      "https://restcountries.com/v2/all?fields=name,flag"
-    );
-    const countries = await res.json();
-    return countries;
-  } catch {
+    let allCountries = [];
+    let offset = 0;
+    const limit = 100;
+
+    while (true) {
+      const res = await fetch(
+        `https://api.restcountries.com/countries/v5?limit=${limit}&offset=${offset}`,
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.RESTCOUNTRIES_API_KEY}`,
+          },
+        },
+      );
+
+      if (!res.ok) throw new Error("Failed to fetch countries");
+
+      const raw = await res.json();
+      const list = raw?.data?.objects ?? [];
+
+      console.log(
+        "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        list.length,
+      );
+
+      allCountries.push(...list);
+
+      if (!raw?.data?.meta?.more) break;
+
+      offset += limit;
+    }
+
+    return allCountries.map((country) => ({
+      code: country.codes?.alpha_2 ?? country.codes?.alpha_3,
+      name: country.names?.common,
+      flag: country.flag?.url_png ?? country.flag?.emoji ?? "",
+    }));
+  } catch (err) {
+    console.error(err);
     throw new Error("Could not fetch countries");
   }
 }

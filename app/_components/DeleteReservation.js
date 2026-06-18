@@ -1,7 +1,7 @@
 "use client";
 
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { deleteReservation } from "../_lib/actions";
+import { deleteBooking } from "../_lib/actions";
 import { useTransition } from "react";
 import Swal from "sweetalert2";
 import SpinnerMini from "./SpinnerMini";
@@ -28,7 +28,7 @@ function DeleteReservation({ bookingId }) {
     });
 
     if (result.isConfirmed) {
-      startTransition(() => deleteReservation(bookingId));
+      startTransition(() => deleteBooking(bookingId));
     }
   }
 
