@@ -1,80 +1,77 @@
-# The Wild Oasis Website
+# The Wild Oasis
 
-A modern, responsive website for The Wild Oasis resort, built with Next.js. This application allows guests to browse luxury cabins, make reservations, and manage their bookings through an intuitive user interface.
+A modern Next.js reservation website for The Wild Oasis, a luxury cabin resort in the Italian Dolomites. Guests can browse cabins, view details, sign in with Google, and manage bookings from a single dashboard.
 
-## Features
+## ✨ Features
 
-- **Cabin Exploration**: Browse and view detailed information about luxury cabins
-- **Reservation System**: Book cabins with an interactive date selector and reservation form
-- **User Account Management**: Sign in/out functionality with profile management
-- **Reservation Management**: View, edit, and delete existing reservations
-- **Responsive Design**: Optimized for desktop and mobile devices
-- **Modern UI**: Built with Tailwind CSS and Heroicons
+- Browse the available luxury cabins and filter by capacity
+- View detailed cabin information and pricing
+- Book a stay using a date-based reservation flow
+- Manage reservations from the guest account area
+- Update guest profile information (nationality and ID)
+- Responsive, polished UI built with Tailwind CSS
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14
-- **Styling**: Tailwind CSS
-- **Icons**: Heroicons
-- **Date Handling**: date-fns
-- **Language**: JavaScript (ES6+)
+- Next.js 14
+- React 18
+- Tailwind CSS
+- NextAuth for Google sign-in
+- Supabase for data storage
+- date-fns for date calculations
+- SweetAlert2 for user feedback
 
-## Getting Started
+## 📋 Prerequisites
 
-First, install the dependencies:
+Before running the project locally, make sure you have:
+
+- Node.js installed
+- A Supabase project
+- Google OAuth credentials
+- A REST Countries API key (used for country data)
+
+## 🚀 Getting Started
+
+Install dependencies:
 
 ```bash
 npm install
 ```
 
-Then, run the development server:
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 to view the app.
 
-You can start editing the page by modifying files in the `app/` directory. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-## Project Structure
-
-```
+```text
 app/
-├── _components/     # Reusable UI components
-├── _lib/           # Utility functions and data services
-├── _styles/        # Global styles
-├── about/          # About page
-├── account/        # User account pages
-├── cabins/         # Cabins listing page
-└── page.js         # Home page
-
-starter/
-├── components/     # Additional components
-├── others/         # Error pages and utilities
-└── pages/          # Legacy pages (if any)
+├── _components/      # Reusable UI components
+├── _lib/             # Auth, API helpers, and data services
+├── _styles/          # Global styles
+├── about/            # About page
+├── account/          # Protected guest account pages
+├── cabins/           # Cabin listing and reservation pages
+└── page.js           # Homepage
 ```
 
-## Available Scripts
+## 🧪 Available Scripts
 
-- `npm run dev` - Start the development server
-- `npm run build` - Build the application for production
-- `npm run start` - Start the production server
-- `npm run lint` - Run ESLint for code quality
+- `npm run dev` — start the development server
+- `npm run build` — build the app for production
+- `npm run start` — run the production build
+- `npm run lint` — run ESLint
 
-## Learn More
+## 🗂️ Data & Auth Notes
 
-To learn more about Next.js, take a look at the following resources:
+- Cabin and booking data are stored in Supabase.
+- Guest authentication is handled through NextAuth and Google sign-in.
+- Reservation pages and account routes are protected by auth rules.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🌐 Deployment
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project is ready to be deployed on platforms such as Vercel. Be sure to configure the same environment variables in your deployment environment.
